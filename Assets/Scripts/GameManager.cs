@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
+
 	}
 	
 	// Update is called once per frame
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour {
 //				f.ChangeTarget(objeto,10f,5f, 0);
 				f.ZoomIn(5);
 				executeFocus=false;
+
 			}
 		}
 	}
