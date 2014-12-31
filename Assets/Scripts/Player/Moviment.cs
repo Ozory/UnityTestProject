@@ -26,14 +26,14 @@ public class Moviment : MonoBehaviour {
 	}
 
 	void Update(){
-		Jump(movement);
+
 	}
 
 	void FixedUpdate ()
 	{
 		// Store the input axes.
-		float h = Input.GetAxisRaw ("Horizontal");
-		float v = Input.GetAxisRaw ("Vertical");
+		float h = Input.GetAxis ("Horizontal");
+		float v = Input.GetAxis("Vertical");
 		
 		// Move the player around the scene.
 		Move (h, v);
@@ -42,16 +42,23 @@ public class Moviment : MonoBehaviour {
 
 	void Move (float h, float v)
 	{
-		// Set the movement vector based on the axis input.
-		movement.Set (h, VerticalSpeedy, v);
 
+		// Set the movement vector based on the axis input.
+
+		if (Input.GetButton("Jump") && IsGrounded ==true){
+			//VerticalSpeedy = Mathf.Clamp(Pulo*100,Pulo*100,Pulo*100);
+			//playerRigidbody.AddForce(new Vector3(h, VerticalSpeedy, v));
+			transform.position = new Vector3(transform.position.x, 2, transform.position.z);
+		}
+		else{
+			movement.Set (h, VerticalSpeedy, v);
+		}
 		// Normalise the movement vector and make it proportional to the speed per second.
 		movement = movement.normalized * Velocidade * Time.deltaTime;
 		//Velocidade = Velocidade * Time.deltaTime;
 
 		// Move the player to it's current position plus the movement.
 		playerRigidbody.MovePosition (transform.position + movement);
-
 
 		if(h != 0f || v != 0f)
 		{
@@ -60,10 +67,17 @@ public class Moviment : MonoBehaviour {
 	}
 
 	void Jump(Vector3 movement){
-		if (Input.GetButton("Jump") && IsGrounded ==true){
-			VerticalSpeedy = Mathf.Clamp(Pulo*100,Pulo*100,Pulo*100);
-			playerRigidbody.AddRelativeForce(new Vector3(movement.x, VerticalSpeedy, movement.z));
+		if (Input.GetButton("Jump") ){
+
+			float h = Input.GetAxisRaw ("Horizontal");
+			float v = Input.GetAxisRaw ("Vertical");
+
+
+
+			Move (h,v);
+			//playerRigidbody.AddRelativeForce(new Vector3(0, VerticalSpeedy, 0));
 			//IsGrounded=false;
+			//movement.y = VerticalSpeedy;
 		}
 	}
 
@@ -94,9 +108,9 @@ public class Moviment : MonoBehaviour {
 	{
 		if(coll.gameObject.tag =="chao"){
 			IsGrounded = false;
-			if(VerticalSpeedy>0){
-				VerticalSpeedy -= 20 * Time.deltaTime;
-			}
+//			if(VerticalSpeedy>0){
+//				VerticalSpeedy -= 20 * Time.deltaTime;
+//			}
 		}
 	}
 
