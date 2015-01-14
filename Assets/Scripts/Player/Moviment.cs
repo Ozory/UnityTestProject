@@ -7,8 +7,12 @@ public class Moviment : MonoBehaviour {
 	public float Velocidade = 5f;
 	public float Pulo = 10f;
 	public float Rotacao = 30f;
+	public float Gravidade =10f;
 
-	private float VerticalSpeedy = 0f;
+	private bool isJumping = false;
+
+
+	private float holdJump = 0.1f;
 
 	private Vector3 movement;
 	private Rigidbody playerRigidbody;
@@ -18,7 +22,6 @@ public class Moviment : MonoBehaviour {
 	private bool IsGrounded = false;
 
 	void Awake(){
-
 		playerRigidbody = GetComponent <Rigidbody> ();
 
 		// Para impedir a rotacao do player enquanto anda
@@ -37,22 +40,13 @@ public class Moviment : MonoBehaviour {
 		
 		// Move the player around the scene.
 		Move (h, v);
-
 	}
 
 	void Move (float h, float v)
 	{
 
-		// Set the movement vector based on the axis input.
+		movement.Set (h, 0, v);
 
-		if (Input.GetButton("Jump") && IsGrounded ==true){
-			//VerticalSpeedy = Mathf.Clamp(Pulo*100,Pulo*100,Pulo*100);
-			//playerRigidbody.AddForce(new Vector3(h, VerticalSpeedy, v));
-			transform.position = new Vector3(transform.position.x, 2, transform.position.z);
-		}
-		else{
-			movement.Set (h, VerticalSpeedy, v);
-		}
 		// Normalise the movement vector and make it proportional to the speed per second.
 		movement = movement.normalized * Velocidade * Time.deltaTime;
 		//Velocidade = Velocidade * Time.deltaTime;
@@ -60,24 +54,42 @@ public class Moviment : MonoBehaviour {
 		// Move the player to it's current position plus the movement.
 		playerRigidbody.MovePosition (transform.position + movement);
 
-		if(h != 0f || v != 0f)
+		// Set the movement vector based on the axis input.
+		Jump();
+		Rotate( movement);
+
+	}
+
+	void Jump(){
+		if (Input.GetButton("Jump") && IsGrounded ==true){
+
+			if(holdJump > 0){
+				holdJump -= Time.deltaTime;
+				Debug.Log(holdJump);
+				Pulo=Pulo*2;
+			}
+			else{
+				holdJump = 0.1f;
+				Debug.Log("Soltei");
+				Pulo=2;
+			}
+
+			playerRigidbody.AddRelativeForce(0, Pulo*100f, 0);
+		}
+
+
+		// Valido se alcancou a altura maxima
+		if(playerRigidbody.position.y >=Pulo)
 		{
-			Rotating(h, v);
+			//Debug.Log("Alcancei a altura maxima");
+			playerRigidbody.AddRelativeForce(0, (Pulo*Gravidade)*-1, 0);
 		}
 	}
 
-	void Jump(Vector3 movement){
-		if (Input.GetButton("Jump") ){
-
-			float h = Input.GetAxisRaw ("Horizontal");
-			float v = Input.GetAxisRaw ("Vertical");
-
-
-
-			Move (h,v);
-			//playerRigidbody.AddRelativeForce(new Vector3(0, VerticalSpeedy, 0));
-			//IsGrounded=false;
-			//movement.y = VerticalSpeedy;
+	void Rotate(Vector3 move){
+		if(move.x != 0f || move.z != 0f)
+		{
+			Rotating(move.x, move.z);
 		}
 	}
 
@@ -100,7 +112,8 @@ public class Moviment : MonoBehaviour {
 	{
 		if(coll.gameObject.tag =="chao"){
 			IsGrounded = true;
-			VerticalSpeedy = 0f;
+			isJumping=false;
+			Debug.Log("Pousei");
 		}
 	}
 	
@@ -108,9 +121,7 @@ public class Moviment : MonoBehaviour {
 	{
 		if(coll.gameObject.tag =="chao"){
 			IsGrounded = false;
-//			if(VerticalSpeedy>0){
-//				VerticalSpeedy -= 20 * Time.deltaTime;
-//			}
+			isJumping = true;
 		}
 	}
 

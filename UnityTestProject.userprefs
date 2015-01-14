@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/Moviment.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player/Moviment.cs" Line="88" Column="22" />
-      <File FileName="Assets/Standard Assets/Character Controllers/Sources/Scripts/ThirdPersonController.js" Line="243" Column="45" />
-      <File FileName="Assets/Scripts/Player/MoveJump.cs" Line="54" Column="6" />
+      <File FileName="Assets/Scripts/Player/MoveJump.cs" Line="17" Column="52" />
+      <File FileName="Assets/Scripts/Player/AndarPular.cs" Line="22" Column="51" />
+      <File FileName="Assets/Scripts/Player/Moviment.cs" Line="63" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
