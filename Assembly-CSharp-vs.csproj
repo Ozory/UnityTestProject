@@ -49,8 +49,6 @@
      <Compile Include="Assets\Scripts\CameraManager.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Ovelha.cs" />
-     <Compile Include="Assets\Scripts\Player\AndarPular.cs" />
-     <Compile Include="Assets\Scripts\Player\MoveJump.cs" />
      <Compile Include="Assets\Scripts\Player\Moviment.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
