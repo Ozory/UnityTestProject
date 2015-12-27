@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour {
 
 	private Text Pontos;
 
-	private bool executeFocus = true;
 	// Use this for initialization
 	void Start () {
 		Pontos = HD.gameObject.GetComponentsInChildren<Text>()[0];

@@ -7,27 +7,42 @@ public class CameraManager : MonoBehaviour
 	public float smoothing = 5f;        // The speed with which the camera will be following.
 	public float SmoothinFocus = 10f;	// Smothing to focus
 	public float distance = 5.0f;
-	private float zAngle = 10.0f;
 
+	public bool follow = false;
 
-	private float defaultSmothing = 0f;
+	private float zAngle = 5.0f;
+	
 	private float defaultDistance = 0f;
+	
+
+	public float height = 3.0f;
+	public float damping = 5.0f;
+	public bool smoothRotation = true;
+	public float rotationDamping = 10.0f;
 
 	void Start ()
 	{
-		defaultSmothing = smoothing;
 		defaultDistance = distance;
 	}
 		
 	void FixedUpdate ()
 	{
 		zAngle = distance / 2;
-		Vector3 pos = new Vector3(target.position.x,distance, target.position.z-zAngle);
+//		Vector3 pos = new Vector3(target.position.x,distance, target.position.z-zAngle);
+//		// Smoothly interpolate between the camera's current position and it's target position.
+//		transform.position = Vector3.Lerp (transform.position, pos, smoothing * Time.deltaTime);
 
-		// Smoothly interpolate between the camera's current position and it's target position.
-		transform.position = Vector3.Lerp (transform.position, pos, smoothing * Time.deltaTime);
 
-		this.smoothing = defaultSmothing;
+		Vector3 wantedPosition = target.TransformPoint(0, height, -distance);
+		transform.position = Vector3.Lerp (transform.position, wantedPosition, Time.deltaTime * damping);
+		
+		if (smoothRotation) {
+			Quaternion wantedRotation = Quaternion.LookRotation(target.position - transform.position, target.up);
+			transform.rotation = Quaternion.Slerp (transform.rotation, wantedRotation, Time.deltaTime * rotationDamping);
+		}
+		
+		else transform.LookAt (target, target.up);
+
 	}
 
 	#region METODOS DA CAMERA
@@ -35,7 +50,6 @@ public class CameraManager : MonoBehaviour
 	public void ChangeTarget(Transform newTarget, float smoth, float seconds, float zoom)
 	{
 		Transform oldTarget = this.target;
-		float oldSmoothing = this.SmoothinFocus;
 		float oldDistance = distance;
 
 		this.target = newTarget;
@@ -45,15 +59,11 @@ public class CameraManager : MonoBehaviour
 		StartCoroutine(Focus(seconds,oldTarget,smoth,oldDistance));
 	}
 
+
 	public void ZoomIn(float distance)
 	{
-		float oldDistance = this.distance;
-		float oldZangle = this.zAngle;
-
 		this.distance = distance;
 		this.zAngle= distance/2;
-
-		this.defaultSmothing = smoothing;
 		this.smoothing = this.SmoothinFocus;
 	}
 
