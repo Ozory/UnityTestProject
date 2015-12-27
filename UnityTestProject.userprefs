@@ -1,8 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/Moviment.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CameraManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player/Moviment.cs" Line="8" Column="1" />
+      <File FileName="Assets/Scripts/CameraManager.cs" Line="4" Column="43" />
+      <File FileName="Assets/Standard Assets/Character Controllers/Sources/Scripts/MouseLook.cs" Line="1" Column="1" />
+      <File FileName="Assets/Standard Assets/Utility/SmoothFollow.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Ovelha.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

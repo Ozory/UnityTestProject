@@ -40,7 +40,6 @@ public class CameraManager : MonoBehaviour
 			Quaternion wantedRotation = Quaternion.LookRotation(target.position - transform.position, target.up);
 			transform.rotation = Quaternion.Slerp (transform.rotation, wantedRotation, Time.deltaTime * rotationDamping);
 		}
-		
 		else transform.LookAt (target, target.up);
 
 	}
@@ -58,8 +57,7 @@ public class CameraManager : MonoBehaviour
 
 		StartCoroutine(Focus(seconds,oldTarget,smoth,oldDistance));
 	}
-
-
+	
 	public void ZoomIn(float distance)
 	{
 		this.distance = distance;
