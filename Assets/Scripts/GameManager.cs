@@ -2,23 +2,26 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class GameManagerScript : MonoBehaviour
+{
 
-	public static int Ovelhas {get;set;}
-	public Canvas HD;
+    public static int Ovelhas { get; set; }
+    public Canvas HD;
 
-	private Text Pontos;
+    private Text Pontos;
 
-	// Use this for initialization
-	void Start () {
-		Pontos = HD.gameObject.GetComponentsInChildren<Text>()[0];
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if(HD)
-		{
-			Pontos.text = "Pontos: "+Ovelhas.ToString();
-		}
-	}
+    // Use this for initialization
+    void Start()
+    {
+        Pontos = HD.gameObject.GetComponentsInChildren<Text>()[0];
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if ( HD )
+        {
+            Pontos.text = "Pontos: " + Ovelhas.ToString();
+        }
+    }
 }
