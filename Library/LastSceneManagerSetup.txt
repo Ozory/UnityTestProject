@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/PickOvelha.unity
+- path: Assets/Scenes/MaisNovoTeste.unity
   isLoaded: 1
   isActive: 1
